@@ -15,7 +15,7 @@ class MenaceTest(unittest.TestCase):
         self.a = self.row_val*3 + self.col_val
         self.current_game_state = list('000000000')
         self.current_game_state[self.a] = '1'
-        self.sys_arg = ["", 3]
+        self.sys_arg = [""]
         self.menace_display = pygame.display.set_mode((300,325))
         #self.argv = 3
 
@@ -30,7 +30,7 @@ class MenaceTest(unittest.TestCase):
 
     def test_play_menace(self):
         self.play_menace = PlayMenace(self.states, self.pickel_path, self.sys_arg)
-        self.assertEqual(type(self.play_menace.play_menace(self.states, self.pickel_path)),bool)
+        self.assertEqual(type(self.play_menace.play_menace(self.states, self.pickel_path)),type(None))
 
     def test_init_board(self):
        # self.play_menace = PlayMenace(self.states, self.pickel_path, self.sys_arg)
