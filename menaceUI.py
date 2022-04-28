@@ -31,28 +31,52 @@ def init_board(menace_display):
     # return the board
     return background
 
-def drawStatus (board):
+
+def show_menace_training_data(board, txt_menace_1, txt_menace_2, txt_menace_draw, menace_1_win, menace_2_win ,menace_draw):
+    board.blit(txt_menace_1, (310, 10))
+    board.blit(menace_1_win, (310, 30))
+    board.blit(txt_menace_2, (310, 50))
+    board.blit(menace_2_win, (310, 70))
+    board.blit(txt_menace_draw, (310, 90))
+    board.blit(menace_draw, (310, 110))
+
+
+
+def draw_status (board, game_mode, menace_1, menace_2, menace_draw):
     
     global nought_cross, winner_status
-
+    font = pygame.font.Font(None, 24)
     # determine the status message
-    if (winner_status is None):
-        message = nought_cross + "'s turn"
+    if game_mode == "":
+        if (winner_status is None):
+            message = nought_cross + "'s turn"
+        else:
+            message = winner_status + " won!"
     else:
-        message = winner_status + " won!"
+        message = "Training Menace"
+        text_menace_1 = font.render("Menace 1 Wins :", 1, (10,10,10))
+        text_menace_2 = font.render("Menace 2 Wins", 1, (10,10,10))
+        text_menace_draws = font.render("Draws", 1, (10,10,10))
+        txt_menace_1_data = font.render(menace_1, 1, (10,10,10))
+        txt_menace_2_data = font.render(menace_2, 1, (10,10,10))
+        txt_menace_draw_data = font.render(menace_draw, 1, (10,10,10))
+
+        show_menace_training_data(board, text_menace_1, text_menace_2, text_menace_draws, txt_menace_1_data, txt_menace_2_data, txt_menace_draw_data)
         
     # render the status message
-    font = pygame.font.Font(None, 24)
+    
     text = font.render(message, 1, (10, 10, 10))
 
     # copy the rendered message onto the board
     board.fill ((230, 230, 250), (0, 325, 300, 25))
     board.blit(text, (10, 315))
 
-def show_board (menace_display, board):
     
 
-    drawStatus (board)
+
+def show_board (menace_display, board, game_mode = "", menace_1 = 0, menace_2 = 0, menace_draw = 0):
+    
+    draw_status (board, game_mode, menace_1, menace_2, menace_draw)
     menace_display.blit (board, (0, 0))
     pygame.display.flip()
     
@@ -146,3 +170,5 @@ def winning_games(board):
        
         winner_status = board_grid[0][2]
         pygame.draw.line (board, (250,0,0), (250, 50), (50, 250), 2)
+
+
